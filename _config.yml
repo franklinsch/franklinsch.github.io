@@ -34,3 +34,8 @@ defaults:
       type:         "posts"
     values:
       layout:       "post"
+
+analytics :
+  provider : google 
+  google : 
+    tracking_id : 'UA-71719858-1'
