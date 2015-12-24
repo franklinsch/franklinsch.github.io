@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-Simply put, I'm a simple Computer Science student with a simple passion: Computer Science.
+To put it simply, I'm a simple Computer Science student with a simple passion: Computer Science.
 
 ##### PLACES I HANG OUT
 
