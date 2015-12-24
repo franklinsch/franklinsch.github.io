@@ -1,0 +1,36 @@
+# Basic
+name:               "Franklin Schrans"
+
+# URL
+baseurl:            ""
+#baseurl:            "" #For Root Domain
+permalink:          /:year/:month/:day/:title.html
+
+# Markdown
+markdown:           rdiscount
+
+# Navigation
+nav:
+  - name:           "About"
+    href:           "about"
+  - name:           "Projects"
+    href:           "projects"
+
+# Sass
+sass:
+  style:            :compressed
+
+# Scopes
+defaults:
+  -
+    scope:
+      path:         ""
+      type:         "pages"
+    values:
+      layout:       "page"
+  -
+    scope:
+      path:         ""
+      type:         "posts"
+    values:
+      layout:       "post"
