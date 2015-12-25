@@ -7,7 +7,11 @@ baseurl:            ""
 permalink:          /:year/:month/:day/:title.html
 
 # Markdown
-markdown:           rdiscount
+markdown:           kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
 # Navigation
 nav:
