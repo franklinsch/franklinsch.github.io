@@ -126,58 +126,7 @@
 <p>Tadaa!<br />
 Now all we need to do is set our <code class="highlighter-rouge">UITabBarController</code>’s <code class="highlighter-rouge">delegate</code> to an instance of <code class="highlighter-rouge">ScrollingTabBarControllerDelegate</code> and we’re done!</p>
 
-<p>Here’s the full code:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>
-<span class="kd">class</span> <span class="kt">ScrollingTabBarControllerDelegate</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UITabBarControllerDelegate</span> <span class="p">{</span>
-  <span class="kd">func</span> <span class="nf">tabBarController</span><span class="p">(</span><span class="nv">tabBarController</span><span class="p">:</span> <span class="kt">UITabBarController</span><span class="p">,</span> <span class="n">animationControllerForTransitionFromViewController</span> <span class="nv">fromVC</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">toViewController</span> <span class="nv">toVC</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIViewControllerAnimatedTransitioning</span><span class="p">?</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="kt">ScrollingTransitionAnimator</span><span class="p">(</span><span class="nv">tabBarController</span><span class="p">:</span> <span class="n">tabBarController</span><span class="p">,</span> <span class="nv">lastIndex</span><span class="p">:</span> <span class="n">tabBarController</span><span class="o">.</span><span class="n">selectedIndex</span><span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">class</span> <span class="kt">ScrollingTransitionAnimator</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UIViewControllerAnimatedTransitioning</span> <span class="p">{</span>
-  <span class="k">weak</span> <span class="k">var</span> <span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">?</span>
-    <span class="k">var</span> <span class="nv">tabBarController</span><span class="p">:</span> <span class="kt">UITabBarController</span><span class="o">!</span>
-    <span class="k">var</span> <span class="nv">lastIndex</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="kd">func</span> <span class="nf">transitionDuration</span><span class="p">(</span><span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">NSTimeInterval</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="mf">0.4</span>
-    <span class="p">}</span>
-
-  <span class="nf">init</span><span class="p">(</span><span class="nv">tabBarController</span><span class="p">:</span> <span class="kt">UITabBarController</span><span class="p">,</span> <span class="nv">lastIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">self</span><span class="o">.</span><span class="n">tabBarController</span> <span class="o">=</span> <span class="n">tabBarController</span>
-      <span class="k">self</span><span class="o">.</span><span class="n">lastIndex</span> <span class="o">=</span> <span class="n">lastIndex</span>
-  <span class="p">}</span>
-
-  <span class="kd">func</span> <span class="nf">animateTransition</span><span class="p">(</span><span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">self</span><span class="o">.</span><span class="n">transitionContext</span> <span class="o">=</span> <span class="n">transitionContext</span>
-
-      <span class="k">let</span> <span class="nv">containerView</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">containerView</span><span class="p">()</span>
-      <span class="k">let</span> <span class="nv">fromViewController</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">viewControllerForKey</span><span class="p">(</span><span class="kt">UITransitionContextFromViewControllerKey</span><span class="p">)</span>
-      <span class="k">let</span> <span class="nv">toViewController</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">viewControllerForKey</span><span class="p">(</span><span class="kt">UITransitionContextToViewControllerKey</span><span class="p">)</span>
-
-      <span class="n">containerView</span><span class="p">?</span><span class="o">.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">toViewController</span><span class="o">!.</span><span class="n">view</span><span class="p">)</span>
-
-      <span class="k">var</span> <span class="nv">viewWidth</span> <span class="o">=</span> <span class="kt">CGRectGetWidth</span><span class="p">(</span><span class="n">toViewController</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
-
-      <span class="k">if</span> <span class="n">tabBarController</span><span class="o">.</span><span class="n">selectedIndex</span> <span class="o">&lt;</span> <span class="n">lastIndex</span> <span class="p">{</span>
-        <span class="n">viewWidth</span> <span class="o">=</span> <span class="o">-</span><span class="n">viewWidth</span>
-      <span class="p">}</span>
-
-    <span class="n">toViewController</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="kt">CGAffineTransformMakeTranslation</span><span class="p">(</span><span class="n">viewWidth</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-      <span class="kt">UIView</span><span class="o">.</span><span class="nf">animateWithDuration</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="nf">transitionDuration</span><span class="p">((</span><span class="k">self</span><span class="o">.</span><span class="n">transitionContext</span><span class="p">)),</span> <span class="nv">delay</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nv">usingSpringWithDamping</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span> <span class="nv">initialSpringVelocity</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="kt">TransitionNone</span><span class="p">,</span> <span class="nv">animations</span><span class="p">:</span> <span class="p">{</span>
-          <span class="n">toViewController</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="kt">CGAffineTransformIdentity</span>
-          <span class="n">fromViewController</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="kt">CGAffineTransformMakeTranslation</span><span class="p">(</span><span class="o">-</span><span class="n">viewWidth</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-          <span class="p">},</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
-          <span class="k">self</span><span class="o">.</span><span class="n">transitionContext</span><span class="p">?</span><span class="o">.</span><span class="nf">completeTransition</span><span class="p">(</span><span class="o">!</span><span class="k">self</span><span class="o">.</span><span class="n">transitionContext</span><span class="o">!.</span><span class="nf">transitionWasCancelled</span><span class="p">())</span>
-          <span class="n">fromViewController</span><span class="o">!.</span><span class="n">view</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="kt">CGAffineTransformIdentity</span>
-          <span class="p">})</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre>
-</div>
+<p>The full code is available on <a href="https://github.com/franklinsch/iOSScrollingTabBarAnimation">GitHub</a>.</p>
 
 </div>
 
