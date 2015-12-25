@@ -68,7 +68,7 @@ func animateTransition(transitionContext: UIViewControllerContextTransitioning) 
 }
 ```
 
-But how to we get `tabBarController.selectedIndex` and `lastIndex`? We need them to know in which direction the scrolling should occur.
+But how do we get `tabBarController.selectedIndex` and `lastIndex`? We need them to know in which direction the scrolling should occur.
 
 Let's pass them in `ScrollingTransitionAnimator`'s constructor:
 

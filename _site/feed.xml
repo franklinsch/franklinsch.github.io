@@ -78,7 +78,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;But how to we get &lt;code class=&quot;highlighter-rouge&quot;&gt;tabBarController.selectedIndex&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;lastIndex&lt;/code&gt;? We need them to know in which direction the scrolling should occur.&lt;/p&gt;
+&lt;p&gt;But how do we get &lt;code class=&quot;highlighter-rouge&quot;&gt;tabBarController.selectedIndex&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;lastIndex&lt;/code&gt;? We need them to know in which direction the scrolling should occur.&lt;/p&gt;
 
 &lt;p&gt;Let’s pass them in &lt;code class=&quot;highlighter-rouge&quot;&gt;ScrollingTransitionAnimator&lt;/code&gt;’s constructor:&lt;/p&gt;
 
