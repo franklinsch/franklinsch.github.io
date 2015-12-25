@@ -22,7 +22,8 @@ Animating the drawing of text in iOS (Swift 2).
 
 ### Web
 ---------------------
-#### [`this`/`self`](https://github.com/franklinsch/franklinsch.github.io.git)
+
+#### [`self`](https://github.com/franklinsch/franklinsch.github.io.git)
 This blog, powered by Jekyll.
 
 #### [Information website on Hacktivism](http://www.doc.ic.ac.uk/project/2014/163/g1416322/)
